@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.css']
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -22,12 +22,17 @@ export class MainNavComponent {
   constructor(private breakpointObserver: BreakpointObserver,
      private generalService:GeneralService,
      public router: Router) {}
+
+  ngOnInit(){
+    this.loginDetails = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.loginDetails)
+  }
   checkLog(msg){
-    console.log(msg)
-    if(msg=='login' && !this.loginDetails){
+    console.log(msg,this.loginDetails)
+    if(msg=='login' && !(this.loginDetails && this.loginDetails.token)){
       document.getElementById('loginModalBtn').click()
     }
-    else if(msg=='signup' && !this.loginDetails){
+    else if(msg=='signup' && !(this.loginDetails && this.loginDetails.token)){
       document.getElementById('signupModalBtn').click()      
     }
     else{
@@ -35,7 +40,6 @@ export class MainNavComponent {
     }
   }
   closeModal(id){
-    console.log(id)
     document.getElementById(id).click()          
   }
 
@@ -47,10 +51,11 @@ export class MainNavComponent {
     if(loginform.valid){
       this.generalService.checkLogin(loginform.value).subscribe((data:any) =>{
         if(data && data.token){
+          this.loginDetails=data
           this.closeModal('loginModalBtn')
-          this.generalService.setUserLoggedIn(data.token)
+          this.generalService.setUserLoggedIn(data)
           if(data.role=='admin'){
-            this.router.navigate(['/vendorreg'])
+            this.router.navigate(['/vendor'])
           }
         }
         console.log(data);
@@ -65,5 +70,10 @@ export class MainNavComponent {
         alert("signup success")
       })
     }
+  }
+
+  Logout(){
+    this.generalService.logout();
+    this.loginDetails=null
   }
 }

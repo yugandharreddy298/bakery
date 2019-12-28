@@ -9,7 +9,14 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,MatInputModule } from '@angular/material';
+import { MatToolbarModule, 
+         MatButtonModule,
+         MatSidenavModule,
+         MatIconModule,
+         MatListModule,
+         MatInputModule,
+         MatChipsModule,
+         MatAutocompleteModule } from '@angular/material';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 
@@ -20,6 +27,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { FrontEndConfig } from './frontendConfig'
 import { GeneralService } from './services/general.service';
 import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,14 +44,16 @@ import { VendorRegistrationComponent } from './vendor-registration/vendor-regist
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule,
+    FormsModule,  
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   providers: [FrontEndConfig,GeneralService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
