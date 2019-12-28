@@ -1,0 +1,112 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer (opened)="log('opened')" (closed)="log('closed')" class="sidenav" fixedInViewport="false" [attr.role]="'dialog'"
+    [mode]="'over'" [opened]="false">
+    <mat-toolbar>
+      <mat-icon class="pointer" aria-label="Side nav toggle icon" (click)="checkLog('login')">person</mat-icon>
+    </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">My Orders</a>
+      <a mat-list-item href="#">Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Bakery</span>
+    </mat-toolbar>
+    <ng-content></ng-content>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div class="container">
+  <!-- Button to Open the Modal -->
+  <button type="button" hidden (click)="drawer.close()" id="loginModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+    Login
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Bakery</h4>
+          <button type="button" id="loginModalCloseBtn" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-title text-center">
+            <h4>Login</h4>
+          </div>
+          <div class="d-flex flex-column text-center">
+            <form #loginForm="ngForm"  name="loginForm" (submit)="login(loginForm)">
+              <div class="form-group">
+                <input type="text" class="form-control" name="mobilenumber" [(ngModel)]="mobilenumber" placeholder="Your mobilenumber" required>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Your password..." required>
+              </div>
+              <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
+              <a class="pointer" (click)="closeModal('loginModalCloseBtn');checkLog('signup')">New user? Create account</a>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<div class="container">
+  <!-- Button to Open the Modal -->
+  <button type="button" hidden (click)="drawer.close()" id="signupModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
+    SignUp
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="signupModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Bakery</h4>
+          <button type="button" id="signupModalCloseBtn" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-title text-center">
+            <h4>SignUp</h4>
+          </div>
+          <div class="d-flex flex-column text-center">
+            <form #signupForm="ngForm"  name="signupForm" (submit)="userSignup(signupForm)">
+              <div class="form-group">
+                <input type="text" class="form-control" name="mobilenumber" [(ngModel)]="mobilenumber" placeholder="Your mobilenumber" required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="email" [(ngModel)]="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Your password..." required>
+              </div>
+              <button type="submit" class="btn btn-info btn-block btn-round">SignUp</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
