@@ -26,7 +26,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { FrontEndConfig } from './frontendConfig'
 import { GeneralService } from './services/general.service';
-import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component'
+import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component';
+import { CategoriesComponent } from './categories/categories.component'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { VendorRegistrationComponent } from './vendor-registration/vendor-regist
     MainNavComponent,
     ProductComponent,
     CartComponent,
-    VendorRegistrationComponent
+    VendorRegistrationComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

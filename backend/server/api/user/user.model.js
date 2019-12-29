@@ -8,6 +8,7 @@ var authTypes = ['github', 'twitter', 'facebook', 'google'];
 var UserSchema = new Schema({
   name: String,
   mobilenumber: String,
+  pincode:[],
   email: { type: String, lowercase: true },
   role: {
     type: String,

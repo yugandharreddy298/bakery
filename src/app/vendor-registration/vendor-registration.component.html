@@ -1,13 +1,12 @@
 <div class="container">
-  <form style="width: 100%" #FormReset=ngForm class="form" id="destination">
+  <form style="width: 100%" #vendorForm=ngForm (submit)="createVendor(vendorForm)" name="vendorForm">
     <div class="row">
-      <div class="col-md-3 col-sm-2 col-xs-2">
+      <div class="col-md-3 ">
       </div>
       <h3 style="color: rgb(30, 221, 23);">Vendor Registration</h3>
-
     </div>
     <div class="row">
-      <div class="col-md-3 col-sm-2 col-xs-2">
+      <div class="col-md-3">
         <b> Vendor Name</b>
         <span style="color: red">*</span>
       </div>
@@ -21,57 +20,56 @@
         <small class="text-danger" *ngIf="vname1.errors?.required">Vendor Name is required.</small>
         <small class="text-danger" *ngIf="vname1.errors?.pattern">Allow Characters Only</small>
       </div>
-
     </div>
-
     <div class="row">
-      <div class="col-md-3 col-sm-3 col-xs-2">
+      <div class="col-md-3 ">
         <b> Email</b>
         <span style="color: red">*</span>
       </div>
-      <div class="col-md-1 col-sm-1 col-xs-1">
+      <div class="col-md-1 ">
         <b> :</b>
       </div>
       <mat-form-field style="margin-top:-16px" class="form-element col-md-3 col-xs-3 col-sm-3">
-        <input [(ngModel)]="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #gctcemail1="ngModel" matInput
+        <input [(ngModel)]="email" name="email" (blur)='checkEmail(gctcemail1,"email")' pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+         #gctcemail1="ngModel" matInput
           type="text" maxlength="100">
       </mat-form-field>
       <div *ngIf="gctcemail1.touched || gctcemail1.valid || click">
         <small class="text-danger" *ngIf="gctcemail1?.errors?.pattern">Please enter valid email address</small>
       </div>
+      <div *ngIf="isEmail" class="text-danger">Email is already Exist</div>
     </div>
 
     <div class="row">
-      <div class="col-md-3 col-sm-2 col-xs-2">
+      <div class="col-md-3 ">
         <b> Phone Number </b>
         <span style="color: red">*</span>
       </div>
-      <div class="col-md-1 col-sm-1 col-xs-1">
+      <div class="col-md-1 ">
         <b> :</b>
       </div>
       <mat-form-field style="margin-top:-16px" class="form-element col-md-3 col-xs-3 col-sm-3">
-        <input [(ngModel)]="phnum" name="phnumber" (keypress)="numberOnly($event)" maxlength="12" matInput type="text" maxlength="100">
+        <input [(ngModel)]="mobilenumber" name="mobilenumber" #phnumber1="ngModel" (blur)='checkEmail(phnumber1,"mobilenumber")' (keypress)="numberOnly($event)" maxlength="12" matInput type="text" maxlength="100">
       </mat-form-field>
+      <div *ngIf="isPhone" class="text-danger">Phone Number is already Exist.</div>
+      
     </div>
 
     <div class="row">
-      <div class="col-md-3 col-sm-2 col-xs-2">
+      <div class="col-md-3 ">
         <b> Pincode</b>
         <span style="color: red">*</span>
       </div>
-      <div class="col-md-1 col-sm-1 col-xs-1">
+      <div class="col-md-1 ">
         <b> :</b>
       </div>
-      <!-- <mat-form-field style="margin-top:-16px" class="form-element col-md-3 col-xs-3 col-sm-3">
-                <input [(ngModel)]="pincode" name="pincode"   matInput type="text" maxlength="100" >
-              </mat-form-field> -->
       <mat-chip-list #chipList aria-label="Pincode selection">
         <mat-chip *ngFor="let pincode of pincodes" [selectable]="selectable" [removable]="removable" (removed)="remove(pincode)">
           {{pincode}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input placeholder="New pincode..." #pincodeInput [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+          [matChipInputAddOnBlur]="addOnBlur"  [(ngModel)]="pincode" name="pincode" (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let pincode of filteredPincodes | async" [value]="pincode">
@@ -79,20 +77,20 @@
         </mat-option>
       </mat-autocomplete>
     </div>
+    <br> 
     <div class="row">
-      <div class="col-md-4 col-sm-4 col-xs-4">
-
+      <div class="col-md-4 ">
       </div>
-      <div class="col-md-2 col-sm-2 col-xs-2">
-        <button (click)="OnclickClose()" mat-raised-button color="warn" type="button" class="button">Close</button>
-
+      
+      <div class="col-md-2 ">
+        <button  mat-raised-button color="warn" type="reset" class="button">Reset</button>
       </div>
-      <div class="col-md-3 col-sm-3 col-xs-3">
+      <div class="col-md-3 ">
         <button mat-raised-button style="background: green" type="submit" class="button">
           <span style="color: white">Submit</span>
         </button>
       </div>
-      <div class="col-md-3 col-sm-3 col-xs-3">
+      <div class="col-md-3  ">
 
       </div>
     </div>

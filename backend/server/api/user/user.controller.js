@@ -25,12 +25,9 @@ exports.index = function(req, res) {
  */
 exports.create = function (req, res, next) {
   console.log(req.body)
-  var newUser = new User(req.body);
-  newUser.provider = 'local';
-  newUser.role = 'user';
-  
+  var newUser = new User(req.body);  
   newUser.save(function(err, user) {
-    if (err) return validationError(res, err);
+    if (err){console.log(err); return validationError(res, err);}
     var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
     res.json({ token: token });
   });
@@ -40,13 +37,22 @@ exports.create = function (req, res, next) {
  * Get a single user
  */
 exports.show = function (req, res, next) {
+  console.log(req.params)
   var userId = req.params.id;
-
-  User.findById(userId, function (err, user) {
-    if (err) return next(err);
-    if (!user) return res.status(401).send('Unauthorized');
-    res.json(user.profile);
+  var type=req.params.type
+if(type=='email'){
+  User.findOne({email:userId}, function (err, user) {
+    if (err){ console.log(err); return next(err);}
+    if (!user) return res.status(200).send('Not found');
+    res.json(user);
   });
+}else{
+  User.findOne({mobilenumber:userId}, function (err, user) {
+    if (err){ console.log(err); return next(err);}
+    if (!user) return res.status(200).send('Not found');
+    res.json(user);
+  }); 
+}
 };
 
 /**

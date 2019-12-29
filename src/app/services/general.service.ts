@@ -29,12 +29,14 @@ export class GeneralService {
   checkLogin(data) {
     return this.http.post(this.serverurl + '/auth/local', data);
   }
-
-
-
   //For User Sign Up
-  userSignup(signupdata){
-    return this.http.post(this.serverurl + '/api/users/', signupdata);
-    
+  userSignup(signupdata){ return this.http.post(this.serverurl + '/api/users/', signupdata); }
+  //To Create Vendor
+  createVendor(vendordata){  return this.http.post(this.serverurl + '/api/users/', vendordata); }
+
+  // To check Email is exist or not  
+  checkEmail(email,type){
+    console.log(email,type)
+    return this.http.get(this.serverurl + '/api/users/checkemail/'+ email+'/'+type);
   }
 }
