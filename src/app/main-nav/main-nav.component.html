@@ -9,7 +9,7 @@
       <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/vendor']" (click)="drawer.close()">Vendor Management</a>
       <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/categories']" (click)="drawer.close()">Categories</a>
       <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/masterproduct']" (click)="drawer.close()">Master products</a>
-      <a *ngIf="loginDetails && loginDetails.role=='user'" mat-list-item [routerLink]="['/orders']" (click)="drawer.close()">My Orders</a>
+      <a *ngIf="loginDetails && loginDetails.role=='user'" mat-list-item [routerLink]="['/myorders']" (click)="drawer.close()">My Orders</a>
       <a *ngIf="loginDetails && loginDetails.role" mat-list-item (click)="Logout();drawer.close()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -20,6 +20,8 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Bakery</span>
+      <mat-icon class="pointer"  style="margin-left:auto" aria-label="Side nav toggle icon">person</mat-icon>{{loginDetails?.email}}
+
     </mat-toolbar>
     <ng-content></ng-content>
     <!-- Add Content Here -->
@@ -34,7 +36,7 @@
 
   <!-- The Modal -->
   <div class="modal fade" id="loginModal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
         <!-- Modal Header -->
@@ -50,12 +52,28 @@
           </div>
           <div class="d-flex flex-column text-center">
             <form #loginForm="ngForm"  name="loginForm" (submit)="login(loginForm)">
+              <div class="row">
+                <div class="col-6">
+                  <label>Mobile Number:</label>
+                </div>
+                <div class="col-6">
+
               <div class="form-group">
                 <input type="text" class="form-control" name="mobilenumber" [(ngModel)]="mobilenumber" placeholder="Your mobilenumber" required>
               </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label>Password :</label>
+              </div>
+              <div class="col-6">
               <div class="form-group">
                 <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Your password..." required>
               </div>
+              </div>
+            </div>
+              <div *ngIf="invalid" class="text-danger">Invalid Username Or Password.</div>
               <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
               <a class="pointer" (click)="closeModal('loginModalCloseBtn');checkLog('signup')">New user? Create account</a>
             </form>
@@ -79,7 +97,7 @@
 
   <!-- The Modal -->
   <div class="modal fade" id="signupModal">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
 
         <!-- Modal Header -->
@@ -95,14 +113,46 @@
           </div>
           <div class="d-flex flex-column text-center">
             <form #signupForm="ngForm"  name="signupForm" (submit)="userSignup(signupForm)">
+              <div class="row">
+                <div class="col-6">
+                  <label>Mobile Number:</label>
+                </div>
+                <div class="col-6">
               <div class="form-group">
-                <input type="text" class="form-control" name="mobilenumber" [(ngModel)]="mobilenumber" placeholder="Your mobilenumber" required>
+                <input type="text" class="form-control" pattern="^[0-9]{10}$"  (keypress)="numberOnly($event)" minlength="10" maxlength="12" #phnumber1="ngModel" (blur)='checkEmail(phnumber1,"mobilenumber")' name="mobilenumber" [(ngModel)]="mobilenumber" placeholder="Your mobilenumber" required>
               </div>
-              <div class="form-group">
-                <input type="text" class="form-control" name="email" [(ngModel)]="email" placeholder="Your Email" required>
+              <small class="text-danger" *ngIf="phnumber1?.errors?.pattern">Please enter valid  phone number</small>
+
+              <div *ngIf="isPhone" class="text-danger">Phone Number is already Exist.</div>
+
               </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <label>Email:</label>
+                </div>
+                <div class="col-6">
               <div class="form-group">
-                <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="Your password..." required>
+                <input type="text" class="form-control" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" (blur)='checkEmail(gctcemail1,"email")' name="email"
+                 [(ngModel)]="email" placeholder="Your Email" #gctcemail1="ngModel" required>
+              </div>
+              <div *ngIf="gctcemail1.touched || gctcemail1.valid || click">
+                <small class="text-danger" *ngIf="gctcemail1?.errors?.pattern">Please enter valid email address</small>
+              </div>
+              <div *ngIf="isEmail" class="text-danger">Email is already Exist</div>
+
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <label>Password:</label>
+                </div>
+                <div class="col-6">
+              <div class="form-group">
+                <input type="password" class="form-control" name="password"   id="myInput" [(ngModel)]="password" placeholder="Your password..." required>
+                
+              </div>
+              </div>
               </div>
               <button type="submit" class="btn btn-info btn-block btn-round">SignUp</button>
             </form>

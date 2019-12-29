@@ -77,6 +77,7 @@ export class VendorRegistrationComponent implements OnInit {
 createVendor(vendordata){
   console.log(vendordata.value)
   if(vendordata.valid){
+    console.log('In vendor creation')
     vendordata.value.role='vendor'
       vendordata.value.password='123' 
       vendordata.value.pincode=this.pincodes

@@ -17,7 +17,10 @@ export class MainNavComponent implements OnInit {
       map(result => result.matches)
     );
   loginDetails:any;
-  
+  invalid=false; // to show error msg in login page
+  emaildata :any
+  isPhone=false //to check phone number exists or not
+  isEmail=false  // to check email exists or not 
   
   constructor(private breakpointObserver: BreakpointObserver,
      private generalService:GeneralService,
@@ -51,6 +54,7 @@ export class MainNavComponent implements OnInit {
     if(loginform.valid){
       this.generalService.checkLogin(loginform.value).subscribe((data:any) =>{
         if(data && data.token){
+          this.invalid=false;
           this.loginDetails=data
           this.closeModal('loginModalBtn')
           this.generalService.setUserLoggedIn(data)
@@ -58,20 +62,49 @@ export class MainNavComponent implements OnInit {
             this.router.navigate(['/vendor'])
           }
         }
-        console.log(data);
+      },err=>{
+        this.invalid=true;
       })
     }
   }
   userSignup(signupdata){
     console.log(signupdata.value)
-    if(signupdata.valid){
+    if(signupdata.valid && !this.isEmail && !this.isPhone){
       this.generalService.userSignup(signupdata.value).subscribe((data:any)=>{
         console.log(data)
-        alert("signup success")
+        this.loginDetails=data
+        if(this.loginDetails){
+          this.generalService.setUserLoggedIn(data);
+          this.router.navigate(['/home']);this.closeModal('signupModalCloseBtn')}
       })
     }
   }
 
+    // To check Email Registred or not
+    checkEmail(email,type){
+      if(email.value){
+      this.generalService.checkEmail(email.value,type).subscribe((data:any)=>{
+        this.emaildata=data
+        console.log(this.emaildata)
+        if(this.emaildata.email && type=='email'){
+          // if(this.isEmail){this.isEmail=false;this.isPhone=false;}
+           this.isEmail=true
+        } else{
+          if(this.isPhone){this.isPhone=false;this.isEmail=false}
+          else this.isPhone=true
+        }
+      })
+    } 
+    }
+    
+      //---------------function called for allowing input type only as number ---------------//
+  numberOnly(event): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    }
+    return true;
+  }
   Logout(){
     this.generalService.logout();
     this.loginDetails=null

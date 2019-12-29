@@ -29,7 +29,8 @@ import { FrontEndConfig } from './frontendConfig'
 import { GeneralService } from './services/general.service';
 import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component';
 import { CategoriesComponent } from './categories/categories.component'
-import { MasterproductComponent } from './masterproduct/masterproduct.component'
+import { MasterproductComponent } from './masterproduct/masterproduct.component';
+import { MyordersComponent } from './myorders/myorders.component'
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MasterproductComponent } from './masterproduct/masterproduct.component'
     CartComponent,
     VendorRegistrationComponent,
     CategoriesComponent,
-    MasterproductComponent
+    MasterproductComponent,
+    MyordersComponent
   ],
   imports: [
     BrowserModule,

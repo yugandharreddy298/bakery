@@ -31,7 +31,7 @@
       </div>
       <mat-form-field style="margin-top:-16px" class="form-element col-md-3 col-xs-3 col-sm-3">
         <input [(ngModel)]="email" name="email" (blur)='checkEmail(gctcemail1,"email")' pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-         #gctcemail1="ngModel" matInput
+         #gctcemail1="ngModel" matInput required
           type="text" maxlength="100">
       </mat-form-field>
       <div *ngIf="gctcemail1.touched || gctcemail1.valid || click">
@@ -49,7 +49,7 @@
         <b> :</b>
       </div>
       <mat-form-field style="margin-top:-16px" class="form-element col-md-3 col-xs-3 col-sm-3">
-        <input [(ngModel)]="mobilenumber" name="mobilenumber" #phnumber1="ngModel" (blur)='checkEmail(phnumber1,"mobilenumber")' (keypress)="numberOnly($event)" maxlength="12" matInput type="text" maxlength="100">
+        <input [(ngModel)]="mobilenumber" name="mobilenumber" #phnumber1="ngModel" (blur)='checkEmail(phnumber1,"mobilenumber")' (keypress)="numberOnly($event)" maxlength="12" matInput type="text" required maxlength="100">
       </mat-form-field>
       <div *ngIf="isPhone" class="text-danger">Phone Number is already Exist.</div>
       
@@ -69,7 +69,7 @@
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input placeholder="New pincode..." #pincodeInput [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"  [(ngModel)]="pincode" name="pincode" (matChipInputTokenEnd)="add($event)">
+          [matChipInputAddOnBlur]="addOnBlur" required [(ngModel)]="pincode" name="pincode" (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let pincode of filteredPincodes | async" [value]="pincode">

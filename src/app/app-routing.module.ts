@@ -5,11 +5,17 @@ import { VendorRegistrationComponent } from './vendor-registration/vendor-regist
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { AppComponent } from './app.component';
 import { MasterproductComponent } from './masterproduct/masterproduct.component';
-
+import {MyordersComponent} from './myorders/myorders.component'
 const routes: Routes = [
   // {path:'',component:AppComponent},
   {path:'vendor',component:VendorRegistrationComponent },
-  {path:'masterproduct',component:MasterproductComponent}
+  {path:'masterproduct',component:MasterproductComponent},
+  {path:'home',component:HomeComponent},
+  {path:'myorders',component:MyordersComponent},
+
+  
+
+
 ];
 
 @NgModule({
