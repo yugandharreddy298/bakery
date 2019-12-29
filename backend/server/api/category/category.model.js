@@ -5,7 +5,13 @@ var mongoose = require('mongoose'),
 
 var CategorySchema = new Schema({
   name: String,
-  info: String,
+  description: String,
+  slug: String,
+  metatag: String,
+  metatagdescription: String,
+  images:[],
+  created_at: { type: Date, required: true, default: Date.now },
+  updated_at: Date,
   active: Boolean
 });
 

@@ -1,0 +1,80 @@
+<div class="container">
+  <mat-tab-group>
+    <mat-tab label="Category">
+      <ng-template matTabContent>
+        <form>
+          <div class="d-flex flex-column">
+            <form #categoryForm="ngForm" name="categoryForm" (submit)="createCategory(categoryForm)">
+              <div class="form-group">
+                <label>Category name:</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="name" placeholder="Enter category name"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Category description:</label>
+                <textarea class="form-control" name="description" [(ngModel)]="description" placeholder="Enter category description"
+                  required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Slug:</label>
+                <input type="text" class="form-control" name="slug" [(ngModel)]="slug" placeholder="Enter slug"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Metatag:</label>
+                <input type="text" class="form-control" name="metatag" [(ngModel)]="metatag" placeholder="Enter metatag"
+                  required>
+              </div>
+              <div class="form-group">
+                <label>Metatag description:</label>
+                <textarea  class="form-control" name="metatagdescription" [(ngModel)]="metatagdescription" placeholder="Enter metatag description"
+                  required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Category Images</label>
+                <input type="file"  class="form-control" name="image" placeholder="Choose image" multiple="multiple" (change)="onFileSelected($event)"
+                  accept=".jpg, .png, .jpeg" id="categoryImageID" required>
+              </div>
+              <button type="submit" class="btn btn-info btn-block btn-round">Submit</button>
+            </form>
+          </div>
+        </form>
+      </ng-template>
+    </mat-tab>
+
+    <mat-tab label="Product Details">
+      <ng-template matTabContent>
+        <form>
+          <div class="d-flex flex-column text-center">
+            <form #masterProForm="ngForm" name="masterProForm" (submit)="createPro(masterProForm)">
+              <div class="form-group">
+                <select class="form-control" name="categoryID" [(ngModel)]="categoryID" required>
+                  <option *ngFor="let category of categories" value={{category._id}}>{{category.name}}</option>
+                </select> 
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="name" [(ngModel)]="name" placeholder="Enter name"
+                  required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="type" [(ngModel)]="type" placeholder="Enter type"
+                  required>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" name="sku" [(ngModel)]="sku" placeholder="Enter sku" required>
+              </div>
+
+              <button type="submit" class="btn btn-info btn-block btn-round">Submit</button>
+            </form>
+          </div>
+        </form>
+      </ng-template>
+    </mat-tab>
+    
+    <mat-tab label="Third">
+      <ng-template matTabContent>
+        Content 3 - Loaded:
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

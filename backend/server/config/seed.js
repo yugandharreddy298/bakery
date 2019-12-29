@@ -5,6 +5,7 @@
 
 'use strict';
 // Insert seed models below
+var Image = require('../api/image/image.model');
 var Masterproduct = require('../api/masterproduct/masterproduct.model');
 var Category = require('../api/category/category.model');
 var Product = require('../api/product/product.model');
@@ -13,6 +14,7 @@ var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 
 // Insert seed data below
+var imageSeed = require('../api/image/image.seed.json');
 var masterproductSeed = require('../api/masterproduct/masterproduct.seed.json');
 var categorySeed = require('../api/category/category.seed.json');
 var productSeed = require('../api/product/product.seed.json');
@@ -20,6 +22,10 @@ var cartSeed = require('../api/cart/cart.seed.json');
 var thingSeed = require('../api/thing/thing.seed.json');
 
 // Insert seed inserts below
+Image.find({}).remove(function() {
+	Image.create(imageSeed);
+});
+
 Masterproduct.find({}).remove(function() {
 	Masterproduct.create(masterproductSeed);
 });

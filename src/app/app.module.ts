@@ -16,6 +16,7 @@ import { MatToolbarModule,
          MatListModule,
          MatInputModule,
          MatChipsModule,
+         MatTabsModule,
          MatAutocompleteModule } from '@angular/material';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
@@ -28,6 +29,7 @@ import { FrontEndConfig } from './frontendConfig'
 import { GeneralService } from './services/general.service';
 import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component';
 import { CategoriesComponent } from './categories/categories.component'
+import { MasterproductComponent } from './masterproduct/masterproduct.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { CategoriesComponent } from './categories/categories.component'
     ProductComponent,
     CartComponent,
     VendorRegistrationComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    MasterproductComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +58,7 @@ import { CategoriesComponent } from './categories/categories.component'
     MatListModule,
     MatInputModule,
     MatChipsModule,
+    MatTabsModule,
     MatAutocompleteModule,
   ],
   providers: [FrontEndConfig,GeneralService,

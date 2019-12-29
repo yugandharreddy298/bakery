@@ -6,9 +6,10 @@
       <span *ngIf="loginDetails && loginDetails.mobilenumber">{{loginDetails.mobilenumber}}</span>
     </mat-toolbar>
     <mat-nav-list>
-      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item href="/vendor" (click)="drawer.close()">Vendor Management</a>
-      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item href="/categories" (click)="drawer.close()">Categories</a>
-      <a *ngIf="loginDetails && loginDetails.role=='user'" mat-list-item href="/orders" (click)="drawer.close()">My Orders</a>
+      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/vendor']" (click)="drawer.close()">Vendor Management</a>
+      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/categories']" (click)="drawer.close()">Categories</a>
+      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/masterproduct']" (click)="drawer.close()">Master products</a>
+      <a *ngIf="loginDetails && loginDetails.role=='user'" mat-list-item [routerLink]="['/orders']" (click)="drawer.close()">My Orders</a>
       <a *ngIf="loginDetails && loginDetails.role" mat-list-item (click)="Logout();drawer.close()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
