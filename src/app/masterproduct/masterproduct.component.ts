@@ -40,10 +40,24 @@ export class MasterproductComponent implements OnInit {
   }
   createCategory(categoryForm){
     console.log(categoryForm.value,categoryForm.valid,this.imageFilesToUpload)
+    console.log(this.imageFilesToUpload.length)
+    console.log(this.imageFilesToUpload[0])    
+    // this.imageFilesToUpload.forEach((element,index) => {
+    //   console.log(this.imageFilesToUpload[index])
+    //   console.log(element)    
+          
+    // });
+    
     if(categoryForm.valid && this.imageFilesToUpload){
       const formData:any = new FormData();
-      formData.append("images", this.imageFilesToUpload)
-      this.productService.createCategory(categoryForm.value).subscribe(data =>{
+    
+      for(let i=0; i<this.imageFilesToUpload.length; i++){
+        console.log(this.imageFilesToUpload[i])
+        formData.append("images", this.imageFilesToUpload[i])      
+      }
+      formData.append('data',JSON.stringify(categoryForm.value))
+      console.log(formData)
+      this.productService.createCategory(formData).subscribe(data =>{
         console.log(data)
       })
     }
