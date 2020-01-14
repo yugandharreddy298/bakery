@@ -3,14 +3,25 @@
     [mode]="'over'" [opened]="false">
     <mat-toolbar>
       <mat-icon class="pointer" aria-label="Side nav toggle icon" (click)="checkLog('login')">person</mat-icon>
-      <span *ngIf="loginDetails && loginDetails.mobilenumber">{{loginDetails.mobilenumber}}</span>
+      <span *ngIf="userProfile && userProfile.mobilenumber">{{userProfile.mobilenumber}}</span>
     </mat-toolbar>
     <mat-nav-list>
-      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/vendor']" (click)="drawer.close()">Vendor Management</a>
-      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/categories']" (click)="drawer.close()">Categories</a>
-      <a *ngIf="loginDetails && loginDetails.role=='admin'" mat-list-item [routerLink]="['/masterproduct']" (click)="drawer.close()">Master products</a>
-      <a *ngIf="loginDetails && loginDetails.role=='user'" mat-list-item [routerLink]="['/myorders']" (click)="drawer.close()">My Orders</a>
-      <a *ngIf="loginDetails && loginDetails.role" mat-list-item (click)="Logout();drawer.close()">Logout</a>
+        <mat-expansion-panel [disabled]="isDisabled">
+            <mat-expansion-panel-header>
+                Categories
+            </mat-expansion-panel-header>
+            <!-- <mat-action-row> -->
+              <ul *ngFor="let category of categoriesList">
+                  <a mat-list-item [routerLink]="['categories/',category.name]" (click)="drawer.close()">{{category.name}}</a>
+              </ul>
+            <!-- </mat-action-row> -->
+          </mat-expansion-panel>
+      <!-- <a mat-list-item [routerLink]="['/categories']" (click)="drawer.close()">Categories</a>       -->
+      <a *ngIf="userProfile && userProfile.role=='admin'" mat-list-item [routerLink]="['/vendor']" (click)="drawer.close()">Vendor Management</a>
+      <a *ngIf="userProfile && userProfile.role=='admin'" mat-list-item [routerLink]="['/masterproduct']" (click)="drawer.close()">Master products</a>
+      <a *ngIf="userProfile && userProfile.role=='user'" mat-list-item [routerLink]="['/orders']" (click)="drawer.close()">My Orders</a>
+      <a *ngIf="userProfile && userProfile.role=='vendor'" mat-list-item [routerLink]="['/products']" (click)="drawer.close()">Add Product</a>
+      <a *ngIf="userProfile && userProfile.role" mat-list-item (click)="Logout();drawer.close()">Logout</a>      
     </mat-nav-list>
   </mat-sidenav>
 
@@ -20,14 +31,17 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>Bakery</span>
-      <mat-icon class="pointer"  style="margin-left:auto" aria-label="Side nav toggle icon">person</mat-icon>{{loginDetails?.email}}
-
+      <mat-icon class="pointer" style="margin-left:auto" aria-label="Side nav toggle icon" (click)="checkLog('login')">person</mat-icon><small>{{userProfile?.email}}</small>
+      <span *ngIf="(userProfile && userProfile.role=='user') || (!userProfile)"><mat-icon class="pointer" aria-label="Side nav toggle icon"  (click)="buttonClick('locationModalBtn')">location_on</mat-icon><small>{{deliveryLocation?.pincode}}</small></span>
+      <span *ngIf="(userProfile && userProfile.role=='user') || (!userProfile)"><mat-icon class="pointer" aria-label="Side nav toggle icon"  [routerLink]="['/cart']">shopping_cart</mat-icon><small></small></span>
+      
     </mat-toolbar>
     <ng-content></ng-content>
     <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>
 
+<!-- Login Modal -->
 <div class="container">
   <!-- Button to Open the Modal -->
   <button type="button" hidden (click)="drawer.close()" id="loginModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
@@ -75,7 +89,8 @@
             </div>
               <div *ngIf="invalid" class="text-danger">Invalid Username Or Password.</div>
               <button type="submit" class="btn btn-info btn-block btn-round">Login</button>
-              <a class="pointer" (click)="closeModal('loginModalCloseBtn');checkLog('signup')">New user? Create account</a>
+              <a class="pointer" (click)="buttonClick('loginModalCloseBtn');checkLog('signup')">New user? Create account </a>
+              <a class="pointer" (click)="buttonClick('loginModalCloseBtn');buttonClick('forgotPasswordModalBtn')">Forgot Password</a>              
             </form>
           </div>
         </div>
@@ -86,9 +101,59 @@
 
 </div>
 
+<!-- Forgot password Modal -->
+<div class="container">
+    <!-- Button to Open the Modal -->
+    <button type="button" hidden (click)="drawer.close()" id="forgotPasswordModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#forgotPasswordModal">
+      Login
+    </button>
+  
+    <!-- The Modal -->
+    <div class="modal fade" id="forgotPasswordModal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+  
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Bakery</h4>
+            <button type="button" id="forgotPasswordModalCloseBtn" class="close" data-dismiss="modal">&times;</button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="form-title text-center">
+              <h4>Forgot Password</h4>
+            </div>
+            <div class="d-flex flex-column text-center">
+              <form #forgotPasswordForm="ngForm" name="forgotPasswordForm" (submit)="forgotPassword(forgotPasswordForm)">
+                <div class="row">
+                  <div class="col-6">
+                    <label>Email:</label>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <input type="text" class="form-control" pattern="([A-Za-z]|[0-9])[A-Za-z0-9.]+[A-Za-z0-9]@((?:[-a-z0-9]+\.)+[a-z]{2,})" (keyup)='findEmail(email,"email")'
+                        name="email" [(ngModel)]="email" placeholder="Enter Email Id" #forgotemailfield="ngModel" required>
+                    </div>
+                    <div *ngIf="forgotemailfield.touched || forgotemailfield.valid || click">
+                      <small class="text-danger" *ngIf="forgotemailfield?.errors?.pattern">Please enter valid email address</small>
+                    </div>
+                    <div *ngIf="!isEmail && checkedEmail" class="text-danger">Email is not Exist</div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-info btn-block btn-round">Send OTP</button>
+                <a class="pointer" (click)="buttonClick('forgotPasswordModalCloseBtn');isEmail=false;checkedEmail=false;checkLog('login')">Login to an account? Click here</a>
+              </form>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+  </div>
 
-
-
+<!-- Signup Modal -->
 <div class="container">
   <!-- Button to Open the Modal -->
   <button type="button" hidden (click)="drawer.close()" id="signupModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
@@ -155,6 +220,55 @@
               </div>
               </div>
               <button type="submit" class="btn btn-info btn-block btn-round">SignUp</button>
+              <a class="pointer" (click)="buttonClick('signupModalCloseBtn');checkLog('login')">Already have an account? Click here</a>            
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- For Location popup -->
+<div class="container">
+  <!-- Button to Open the Modal -->
+  <button type="button" hidden (click)="drawer.close()" id="locationModalBtn" class="btn btn-primary" data-toggle="modal" data-target="#locationModal">
+    Location
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="locationModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Bakery</h4>
+          <button type="button" id="locationModalCloseBtn" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-title text-center">
+            <h4>location</h4>
+          </div>
+          <div class="d-flex flex-column text-center">
+            <form #locationForm="ngForm"  name="locationForm" (submit)="setLocation(locationForm)">
+              <div class="row">
+                <div class="col-6">
+                  <label>Pincode:</label>
+                </div>
+                <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control" pattern="^[0-9]*$" #pincodefield="ngModel" name="pincode" [(ngModel)]="pincode" placeholder="Enter delivery pincode" required>
+              </div>
+              <small class="text-danger" *ngIf="pincodefield?.errors?.pattern">Please enter valid pincode format</small>
+              <small class="text-danger" *ngIf="isPincodeExist==false && pincodefield && pincodefield.valid">Service is not available to this pincode</small>
+              </div>
+              </div>
+              <button type="submit" class="btn btn-info btn-block btn-round">Submit</button>
             </form>
           </div>
         </div>

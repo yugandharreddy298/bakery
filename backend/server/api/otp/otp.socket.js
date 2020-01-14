@@ -4,21 +4,21 @@
 
 'use strict';
 
-var Image = require('./image.model');
+var Otp = require('./otp.model');
 
 exports.register = function(socket) {
-  Image.schema.post('save', function (doc) {
+  Otp.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  Image.schema.post('remove', function (doc) {
+  Otp.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }
 
 function onSave(socket, doc, cb) {
-  socket.emit('image:save', doc);
+  socket.emit('otp:save', doc);
 }
 
 function onRemove(socket, doc, cb) {
-  socket.emit('image:remove', doc);
+  socket.emit('otp:remove', doc);
 }

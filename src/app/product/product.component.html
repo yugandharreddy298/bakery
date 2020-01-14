@@ -1,3 +1,29 @@
-<p>
-  product works!
-</p>
+<div class="container">
+<button type="button" (click)="addProduct()" class="btn btn-info btn-block btn-round">Add Product</button>
+
+<table class="table" *ngIf="productsList && productsList.length > 0">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th colspan="2">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of productsList">
+        <td>{{item.name}}</td>
+        <td>{{item.price | currency}}</td>
+        <td>{{item.quantity}}</td>
+        <td>
+          <button (click)="edit($index)" class="btn btn-default">Edit</button>
+        </td>
+        <td>
+          <button (click)="remove($index)" class="btn btn-default">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

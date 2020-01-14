@@ -25,7 +25,7 @@ export class VendorRegistrationComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   pincodes: string[] = [];
   pincodeCtrl = new FormControl();
-
+  isPincodeExist = false
 
   ngOnInit() {
   }
@@ -46,6 +46,15 @@ export class VendorRegistrationComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {  this.pincodeInput.nativeElement.value = '';}
 
+  checkPincodes(){
+    this.generalService.findPincodes({pincodes:this.pincodes}).subscribe((data:any) =>{
+      console.log(data)
+      if(data && data.length){
+        this.isPincodeExist=true
+      }
+      else    this.isPincodeExist=false        
+    })
+  }
   add(event: MatChipInputEvent): void {
     // Add pincode only when MatAutocomplete is not open
     // To make sure this does not conflict with OptionSelected Event
@@ -56,6 +65,7 @@ export class VendorRegistrationComponent implements OnInit {
       // Add our pincode
       if ((value || '').trim()) {
         this.pincodes.push(value.trim());
+        this.checkPincodes()
       }
 
       // Reset the input value
@@ -71,17 +81,25 @@ export class VendorRegistrationComponent implements OnInit {
 
     if (index >= 0) {
       this.pincodes.splice(index, 1);
+      this.checkPincodes()
     }
   }
 //create vendor
 createVendor(vendordata){
-  console.log(vendordata.value)
-  if(vendordata.valid){
+  console.log(vendordata.value,this.pincodes,this.pincodes.length)
+  if(vendordata.valid && this.pincodes && this.pincodes.length && !this.isPincodeExist){
     console.log('In vendor creation')
     vendordata.value.role='vendor'
-      vendordata.value.password='123' 
+      vendordata.value.password='Password@123'
       vendordata.value.pincode=this.pincodes
     this.generalService.createVendor(vendordata.value).subscribe((data:any)=>{
+      console.log(data)
+      if(data){
+        this.generalService.openSnackBar("Vendor Created Successfully",'X')
+        vendordata.resetForm();
+        this.pincodes=[];
+        this.isPincodeExist=false
+      }
     })
   }
 }

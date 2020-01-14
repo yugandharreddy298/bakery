@@ -13,11 +13,6 @@ export class ProductService {
   // For getting the backend server URL
   serverurl = this.frontendconfig.serverurl; 
 
-  
-  // For 
-  createMasterProduct(data) {
-    return this.http.post(this.serverurl + '/api/masterproduct', data);
-  }
   createCategory(data){
     return this.http.post(this.serverurl + '/api/category', data);
   }
@@ -25,4 +20,33 @@ export class ProductService {
   getCategoriesList(){
     return this.http.get(this.serverurl + '/api/category');
   }
+
+  
+  // For add master product 
+  addMasterProduct(data) {
+    return this.http.post(this.serverurl + '/api/masterproduct', data);
+  }
+
+  // Get Master Products list
+  getMasterProducts(){
+    return this.http.get(this.serverurl + '/api/masterproduct');    
+  }
+
+  // Add vendor product
+  addVendorProduct(data){
+    console.log(data)
+    return this.http.post(this.serverurl + '/api/product',data);    
+  }
+
+  // Get vendor products list
+  getVendorProducts(data){
+    console.log(data)
+    return this.http.get(this.serverurl + '/api/product/getVendorProducts/'+data.vendorId);    
+  }
+
+    // Get products list by category
+    getProductsByCategory(category){
+      console.log(category)
+      return this.http.get(this.serverurl + '/api/product/category/'+category);
+    }
 }

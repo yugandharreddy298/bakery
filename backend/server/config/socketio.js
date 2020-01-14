@@ -18,6 +18,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/otp/otp.socket').register(socket);
   require('../api/emailservice/emailservice.socket').register(socket);
   require('../api/image/image.socket').register(socket);
   require('../api/masterproduct/masterproduct.socket').register(socket);

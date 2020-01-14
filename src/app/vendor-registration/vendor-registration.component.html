@@ -70,6 +70,7 @@
         </mat-chip>
         <input placeholder="New pincode..." #pincodeInput [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputAddOnBlur]="addOnBlur" required [(ngModel)]="pincode" name="pincode" (matChipInputTokenEnd)="add($event)">
+        <p *ngIf='isPincodeExist'>Pincode Already exist</p>
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let pincode of filteredPincodes | async" [value]="pincode">
@@ -83,14 +84,11 @@
       </div>
       
       <div class="col-md-2 ">
-        <button  mat-raised-button color="warn" type="reset" class="button">Reset</button>
-      </div>
-      <div class="col-md-3 ">
         <button mat-raised-button style="background: green" type="submit" class="button">
           <span style="color: white">Submit</span>
-        </button>
+        </button>      
       </div>
-      <div class="col-md-3  ">
+      <div class="col-md-6  ">
 
       </div>
     </div>

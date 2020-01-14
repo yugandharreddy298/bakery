@@ -14,6 +14,10 @@ var UserSchema = new Schema({
     type: String,
     default: 'user'
   },
+  status: Boolean,
+  created_at: { type: Date, required: true, default: Date.now },
+  updated_at: Date,
+  active: Boolean,
   hashedPassword: String,
   provider: String,
   salt: String,

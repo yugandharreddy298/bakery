@@ -29,7 +29,13 @@ exports.create = async function(req, res) {
   console.log("req body  ----------------")
   var imageIDs=[];
   var bulkdata=[]
-  req.files.images.forEach(element => {
+  var images = []
+  console.log(typeof(req.files.images),req.files.length)
+  if(req.files.images.length)
+    images = req.files.images    
+  else
+    images.push(req.files.images)
+  images.forEach(element => {
     let file = {}
     file.originalFilename = element.originalFilename;
     file.path = element.path;

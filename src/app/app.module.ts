@@ -17,7 +17,11 @@ import { MatToolbarModule,
          MatInputModule,
          MatChipsModule,
          MatTabsModule,
+         MatSnackBarModule,
+         MatExpansionModule,
          MatAutocompleteModule } from '@angular/material';
+// import {MatExpansionModule} from '@angular/material/expansion';
+
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
 
@@ -61,6 +65,8 @@ import { MyordersComponent } from './myorders/myorders.component'
     MatInputModule,
     MatChipsModule,
     MatTabsModule,
+    MatSnackBarModule,
+    MatExpansionModule,
     MatAutocompleteModule,
   ],
   providers: [FrontEndConfig,GeneralService,

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { GeneralService } from '../services/general.service';
 
 @Component({
   selector: 'app-masterproduct',
@@ -8,9 +9,10 @@ import { ProductService } from '../services/product.service';
 })
 export class MasterproductComponent implements OnInit {
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,private generalService:GeneralService) { }
+  @ViewChild('fileUploader') fileUploader:ElementRef;
 
-  categories = [{'_id': '1234567890','name':'cakes'},{'_id': '1234567891','name':'flowers'}]
+  categories = []
   ngOnInit() {
     this.getCategories();
   }
@@ -25,8 +27,10 @@ export class MasterproductComponent implements OnInit {
   createPro(masterProForm){
     console.log(masterProForm.value,masterProForm.valid)
     if(masterProForm.valid){
-      this.productService.createMasterProduct(masterProForm.value).subscribe(data =>{
+      this.productService.addMasterProduct(masterProForm.value).subscribe(data =>{
         console.log(data)
+        masterProForm.resetForm();
+        this.generalService.openSnackBar("Master Product added Successfully",'X')
       })
     }
   }
@@ -38,27 +42,23 @@ export class MasterproductComponent implements OnInit {
     this.imageFileInput=fileInput
     this.imageFilesToUpload = <Array<File>>this.imageFileInput.target.files;    
   }
+
   createCategory(categoryForm){
-    console.log(categoryForm.value,categoryForm.valid,this.imageFilesToUpload)
-    console.log(this.imageFilesToUpload.length)
-    console.log(this.imageFilesToUpload[0])    
-    // this.imageFilesToUpload.forEach((element,index) => {
-    //   console.log(this.imageFilesToUpload[index])
-    //   console.log(element)    
-          
-    // });
-    
+    console.log(categoryForm.value,categoryForm.valid,this.imageFilesToUpload)    
     if(categoryForm.valid && this.imageFilesToUpload){
       const formData:any = new FormData();
-    
       for(let i=0; i<this.imageFilesToUpload.length; i++){
-        console.log(this.imageFilesToUpload[i])
         formData.append("images", this.imageFilesToUpload[i])      
       }
       formData.append('data',JSON.stringify(categoryForm.value))
       console.log(formData)
       this.productService.createCategory(formData).subscribe(data =>{
         console.log(data)
+        categoryForm.resetForm()
+        this.imageFileInput=null
+        this.imageFilesToUpload=null
+        this.fileUploader.nativeElement.value = null;
+        this.generalService.openSnackBar("Category added Successfully",'X')        
       })
     }
   }

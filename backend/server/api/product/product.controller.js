@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var Product = require('./product.model');
-
+var Category = require('../category/category.model')
 // Get list of products
 exports.index = function(req, res) {
   Product.find(function (err, products) {
@@ -20,6 +20,27 @@ exports.show = function(req, res) {
   });
 };
 
+// Get a vendor products
+exports.getVendorProducts = function(req, res) {
+  Product.find({vendorId:req.params.id}, function (err, products) {
+    if(err) { return handleError(res, err); }
+    if(!products) { return res.status(404).send('Not Found'); }
+    return res.json(products);
+  });
+};
+
+exports.getProductsByCategory = function(req,res) {
+  Category.findOne({name:req.params.category}, function(err, category) {
+    if(err) { return handleError(res, err); }
+    if(!category) { return res.status(404).send('Category Not found'); }
+    Product.find({category:category._id}, function(err, products) {
+      if(err) { return handleError(res, err); }
+      if(!products) { return res.status(404).send('Products Not Found'); }
+      return res.json(products);
+    })
+  })
+
+}
 // Creates a new product in the DB.
 exports.create = function(req, res) {
   Product.create(req.body, function(err, product) {
