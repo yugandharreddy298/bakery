@@ -8,6 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule} from '@angular/router';
+import { CustomFormsModule } from 'ng2-validation';
+
 // import { NgbModule } from  '@ng-bootstrap/ng-bootstrap';
 
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -71,6 +73,7 @@ import { CategoryService } from './services/category.service';
   ],
   imports: [
     BrowserModule,
+    CustomFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
