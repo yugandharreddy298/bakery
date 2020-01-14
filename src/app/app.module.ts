@@ -7,6 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule} from '@angular/router';
+import { NgbModule } from  '@ng-bootstrap/ng-bootstrap';
+
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, 
@@ -34,7 +37,14 @@ import { GeneralService } from './services/general.service';
 import { VendorRegistrationComponent } from './vendor-registration/vendor-registration.component';
 import { CategoriesComponent } from './categories/categories.component'
 import { MasterproductComponent } from './masterproduct/masterproduct.component';
-import { MyordersComponent } from './myorders/myorders.component'
+import { MyordersComponent } from './myorders/myorders.component';
+import { BsNavComponent } from './bs-nav/bs-nav.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component'
+import { from } from 'rxjs';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +58,13 @@ import { MyordersComponent } from './myorders/myorders.component'
     VendorRegistrationComponent,
     CategoriesComponent,
     MasterproductComponent,
-    MyordersComponent
+    MyordersComponent,
+    BsNavComponent,
+    CheckOutComponent,
+    OrderSuccessComponent,
+    AdminProductsComponent,
+    AdminOrdersComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +84,19 @@ import { MyordersComponent } from './myorders/myorders.component'
     MatSnackBarModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    NgbModule,
+    RouterModule.forRoot([
+       {path:'',component:HomeComponent},
+       {path:'products',component:ProductComponent},
+       {path:'shopping-cart',component:CartComponent},
+       {path:'check-out',component:CheckOutComponent},
+       {path:'order-success',component:OrderSuccessComponent},
+       {path:'login',component:LoginComponent},
+       {path:'admin/products',component:AdminProductsComponent},
+       {path:'admin/orders',component:AdminProductsComponent}
+    ])
   ],
+  exports:[NgbModule],
   providers: [FrontEndConfig,GeneralService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
