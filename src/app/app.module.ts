@@ -88,18 +88,18 @@ import { CategoryService } from './services/category.service';
     MatExpansionModule,
     MatAutocompleteModule,
     // NgbModule,
-    RouterModule.forRoot([
-       {path:'',component:HomeComponent},
-       {path:'products',component:ProductComponent},
-       {path:'myorders',component:MyordersComponent},
-       {path:'cart',component:CartComponent},
-       {path:'check-out',component:CheckOutComponent},
-       {path:'order-success',component:OrderSuccessComponent},
-       {path:'login',component:LoginComponent},
-       {path:'admin/admin-products',component:AdminProductsComponent},
-       {path:'admin/admin-orders',component:AdminOrdersComponent},
-       {path:'admin/products/new',component:ProductsFormComponent}
-  ])
+  //   RouterModule.forRoot([
+  //      {path:'',component:HomeComponent},
+  //      {path:'products',component:ProductComponent},
+  //      {path:'myorders',component:MyordersComponent},
+  //      {path:'cart',component:CartComponent},
+  //      {path:'check-out',component:CheckOutComponent},
+  //      {path:'order-success',component:OrderSuccessComponent},
+  //      {path:'login',component:LoginComponent},
+  //      {path:'admin/admin-products',component:AdminProductsComponent},
+  //      {path:'admin/admin-orders',component:AdminOrdersComponent},
+  //      {path:'admin/products/new',component:ProductsFormComponent}
+  // ])
   ],
   // exports:[NgbModule],
   providers: [FrontEndConfig,GeneralService,CategoryService,

@@ -9,6 +9,17 @@ import {MyordersComponent} from './myorders/myorders.component'
 import { CartComponent } from './cart/cart.component';
 import { ProductComponent } from './product/product.component';
 import { CategoriesComponent } from './categories/categories.component';
+
+
+import { BsNavComponent } from './bs-nav/bs-nav.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component'
+import { from } from 'rxjs';
+import { LoginComponent } from './login/login.component';
+import { ProductsFormComponent } from './admin/products-form/products-form.component';
+import { CategoryService } from './services/category.service';
 const routes: Routes = [
   // {path:'',component:AppComponent},
   {path:'vendor',component:VendorRegistrationComponent },
@@ -19,6 +30,21 @@ const routes: Routes = [
   {path:'products',component:ProductComponent},
   {path:'categories',component:CategoriesComponent},  
   {path:'categories/:category',component:CategoriesComponent},
+
+
+
+
+  {path:'',component:HomeComponent},
+       {path:'products',component:ProductComponent},
+       {path:'myorders',component:MyordersComponent},
+       {path:'cart',component:CartComponent},
+       {path:'check-out',component:CheckOutComponent},
+       {path:'order-success',component:OrderSuccessComponent},
+       {path:'login',component:LoginComponent},
+       {path:'admin/products',component:AdminProductsComponent},
+       {path:'admin/orders',component:AdminOrdersComponent},
+       {path:'admin/products/new',component:ProductsFormComponent},
+
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 

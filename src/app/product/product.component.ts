@@ -15,7 +15,7 @@ export class ProductComponent implements OnInit {
   userProfile
   ngOnInit() {
     this.userProfile = JSON.parse(localStorage.getItem('currentUser'));
-    
+    if(this.userProfile && this.userProfile._id)
     this.productService.getVendorProducts({vendorId:this.userProfile._id}).subscribe((data:any) => {
       console.log(data)
       this.productsList=data
