@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 
 // Get a single cart
 exports.show = function(req, res) {
-  Cart.findById(req.params.id, function (err, cart) {
+  Cart.findOne({ $and: [{ uid: req.user._id }, { productId: req.params.id }, { active: true }] }).exec(function (err, cart) {
     if(err) { return handleError(res, err); }
     if(!cart) { return res.status(404).send('Not Found'); }
     return res.json(cart);

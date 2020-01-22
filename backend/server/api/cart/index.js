@@ -7,7 +7,7 @@ var auth = require('../../auth/auth.service');
 var router = express.Router();
 
 router.get('/', auth.hasRole('user'), controller.index);
-router.get('/:id', controller.show);
+router.get('/product/:id', auth.hasRole('user'), controller.show);
 router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/addtocart/:id', auth.hasRole('user') ,controller.update);
 router.patch('/:id', controller.update);

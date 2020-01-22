@@ -64,4 +64,8 @@ export class ProductService {
   getProductById(id){
     return this.http.get(this.serverurl + '/api/product/'+id);
   }
+
+  getItemInCartByProductId(id){
+    return this.http.get(this.serverurl + '/api/cart/product/'+id);                
+  }
 }
