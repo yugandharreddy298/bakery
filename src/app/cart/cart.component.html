@@ -1,3 +1,15 @@
-<p>
-  cart works!
-</p>
+<div class="container">
+    <div class="row">
+    <div *ngFor="let product of cartItems" class="col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img class="pointer" [routerLink]="['home/',product._id]" *ngIf="product?.productId?.thumbnail?.path" [src]="serverUrl+'/'+product.productId.thumbnail.path" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">{{product.productId.title}}</h5>
+            <p class="card-text">Price: {{product.productId.price  | currency:'INR':true}}</p>            
+            <p class="card-text">Quantity: {{product.quantity}}</p>            
+            <p class="card-text">Total: {{product.productId.price*product.quantity  | currency:'INR':true}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

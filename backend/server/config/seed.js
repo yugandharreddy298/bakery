@@ -6,14 +6,14 @@
 'use strict';
 // Insert seed models below
 
-var User = require('../api/user/user.model');
+// var User = require('../api/user/user.model');
 
 // Insert seed data below
 
-var userSeed = require('../api/user/user.seed.json');
+// var userSeed = require('../api/user/user.seed.json');
 
 // Insert seed inserts below
 
-User.find({}).remove(function() {
-  User.create(userSeed);
-});
+// User.find({}).remove(function() {
+//   User.create(userSeed);
+// });

@@ -20,8 +20,9 @@ import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { ProductsFormComponent } from './admin/products-form/products-form.component';
 import { CategoryService } from './services/category.service';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 const routes: Routes = [
-  // {path:'',component:AppComponent},
+  {path:'',component:HomeComponent},
   {path:'vendor',component:VendorRegistrationComponent },
   {path:'masterproduct',component:MasterproductComponent},
   {path:'home',component:HomeComponent},
@@ -30,20 +31,20 @@ const routes: Routes = [
   {path:'products',component:ProductComponent},
   {path:'categories',component:CategoriesComponent},  
   {path:'categories/:category',component:CategoriesComponent},
+  {path:'admin/products/new',component:ProductsFormComponent},
+  {path:'home/:id',component:ProductDetailsComponent},
 
 
-
-
-  {path:'',component:HomeComponent},
-       {path:'products',component:ProductComponent},
-       {path:'myorders',component:MyordersComponent},
-       {path:'cart',component:CartComponent},
-       {path:'check-out',component:CheckOutComponent},
-       {path:'order-success',component:OrderSuccessComponent},
-       {path:'login',component:LoginComponent},
-       {path:'admin/products',component:AdminProductsComponent},
-       {path:'admin/orders',component:AdminOrdersComponent},
-       {path:'admin/products/new',component:ProductsFormComponent},
+  // {path:'',component:HomeComponent},
+  //      {path:'products',component:ProductComponent},
+  //      {path:'myorders',component:MyordersComponent},
+  //      {path:'cart',component:CartComponent},
+  //      {path:'check-out',component:CheckOutComponent},
+  //      {path:'order-success',component:OrderSuccessComponent},
+  //      {path:'login',component:LoginComponent},
+  //      {path:'admin/products',component:AdminProductsComponent},
+  //      {path:'admin/orders',component:AdminOrdersComponent},
+  //      {path:'admin/products/new',component:ProductsFormComponent},
 
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];

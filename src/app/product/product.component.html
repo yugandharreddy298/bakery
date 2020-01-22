@@ -1,29 +1,104 @@
 <div class="container">
-<button type="button" (click)="addProduct()" class="btn btn-info btn-block btn-round">Add Product</button>
+  <div class="row">
+    <div class="col-md-6">
+      <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+        <div class="form-group">
+          <label for="category">Select category</label>
+          <select #categoryField [(ngModel)]="category" name="category" id="category" class="form-control" required>
+            <option *ngFor="let c of categories$ | async" [value]="c._id">{{c.name}}</option>
+          </select>
+          <div class="alert alert-danger" *ngIf="categoryField.touched && categoryField.errors.required">
+            Category is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Product title</label>
+          <input #titleField [(ngModel)]="title" placeholder="Enter product title" name="title" id="title" type="text" class="form-control"
+            required>
+          <div class="alert alert-danger" *ngIf="titleField.touched && titleField.errors.required">
+            Product title is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Product description:</label>
+          <textarea #productdescriptionField class="form-control" name="description" [(ngModel)]="description" placeholder="Enter product description"
+            required></textarea>
+          <div class="alert alert-danger" *ngIf="productdescriptionField.touched && productdescriptionField.errors.required">
+            Product description is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input #priceField [(ngModel)]="price" placeholder="Enter product price" name="price" id="price" type="number" class="form-control"
+              [min]="0" required>
+          </div>
+          <div class="alert alert-danger" *ngIf="priceField.touched">
+            <div *ngIf="priceField.errors.required">Price is required</div>
+            <div *ngIf="priceField.errors.min">Price should be greater or equal to 0</div>
+          </div>
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <div class="input-group">
+              <input #quantityField [(ngModel)]="quantity" placeholder="Enter product quantity" name="quantity" id="quantity" type="number" class="form-control"
+                [min]="0" required>
+            </div>
+            <div class="alert alert-danger" *ngIf="priceField.touched">
+              <div *ngIf="quantityField.errors.required">Quantity is required</div>
+            </div>
+          </div>
+        <div class="form-group">
+          <label>Product Thumbnail</label>
+          <input type="file" #thumbnailimageField class="form-control" name="thumbnail" placeholder="Choose thumbnail" (change)="onThumbnailSelected($event)"
+            accept=".jpg, .png, .jpeg" id="thumbnailID" required>
+          <div class="alert alert-danger" *ngIf="thumbnailimageField.touched">
+            <div *ngIf="thumbnailimageField.errors.required">Product thumbnail is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Slug:</label>
+          <input #slugField type="text" class="form-control" name="slug" [(ngModel)]="slug" placeholder="Enter slug" required>
+          <div class="alert alert-danger" *ngIf="slugField.touched">
+            <div *ngIf="slugField.errors.required">Slug is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Metatag:</label>
+          <input #metatagField type="text" class="form-control" name="metatag" [(ngModel)]="metatag" placeholder="Enter metatag" required>
+          <div class="alert alert-danger" *ngIf="metatagField.touched">
+            <div *ngIf="metatagField.errors.required">Metatag is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Metatag description:</label>
+          <textarea #metatagdescriptionField class="form-control" name="metatagdescription" [(ngModel)]="metatagdescription" placeholder="Enter metatag description"
+            required></textarea>
+          <div class="alert alert-danger" *ngIf="metatagdescriptionField.touched">
+            <div *ngIf="metatagdescriptionField.errors.required">Metatag description is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Product Images</label>
+          <input type="file" #fileUploaderField class="form-control" name="image" placeholder="Choose images" multiple="multiple" (change)="onFileSelected($event)"
+            accept=".jpg, .png, .jpeg" id="productImageID" required>
+          <div class="alert alert-danger" *ngIf="fileUploaderField.touched">
+            <div *ngIf="fileUploaderField.errors.required">Product images are required</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
 
-<table class="table" *ngIf="productsList && productsList.length > 0">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th colspan="2">Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of productsList">
-        <td>{{item.name}}</td>
-        <td>{{item.price | currency}}</td>
-        <td>{{item.quantity}}</td>
-        <td>
-          <button (click)="edit($index)" class="btn btn-default">Edit</button>
-        </td>
-        <td>
-          <button (click)="remove($index)" class="btn btn-default">Remove</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+        <img *ngIf="fileUploaderField" [src]="fileUploaderField" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{titleField.value}}</h5>
+          <p class="card-text">{{priceField.value | currency:'INR':true}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-

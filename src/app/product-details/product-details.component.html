@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="product" class="col-md-3">
+      <div class="card" style="width: 18rem;">
+        <img class="pointer" [routerLink]="['home/',product._id]" *ngIf="product?.thumbnail?.path"
+          [src]="serverUrl+'/'+product.thumbnail.path" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">{{product.title}}</h5>
+          <p class="card-text">Price: {{product.price | currency:'INR':true}}</p>
+          <p class="card-text">Quantity: {{product.quantity}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

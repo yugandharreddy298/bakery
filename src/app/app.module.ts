@@ -49,6 +49,7 @@ import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { ProductsFormComponent } from './admin/products-form/products-form.component';
 import { CategoryService } from './services/category.service';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CategoryService } from './services/category.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductsFormComponent
+    ProductsFormComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,

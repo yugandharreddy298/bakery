@@ -28,6 +28,7 @@ module.exports = function(app) {
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());
+  app.use('/uploads', express.static('./uploads'));
 
   app.use(cors('*')); // cors for all the routes of the application
 

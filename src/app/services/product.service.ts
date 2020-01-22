@@ -43,10 +43,25 @@ export class ProductService {
     console.log(data)
     return this.http.get(this.serverurl + '/api/product/getVendorProducts/'+data.vendorId);    
   }
-
+  // Get products
+  getProducts(){
+    return this.http.get(this.serverurl + '/api/product/');    
+  }
     // Get products list by category
     getProductsByCategory(category){
       console.log(category)
       return this.http.get(this.serverurl + '/api/product/category/'+category);
     }
+  addToCart(id,data){
+    console.log(id,data)    
+    return this.http.put(this.serverurl + '/api/cart/addtocart/'+id,data);        
+  }
+
+  getCartItems(){
+    return this.http.get(this.serverurl + '/api/cart/');            
+  }
+
+  getProductById(id){
+    return this.http.get(this.serverurl + '/api/product/'+id);
+  }
 }

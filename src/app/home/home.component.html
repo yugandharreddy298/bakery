@@ -1,0 +1,14 @@
+<div class="container">
+<div class="row">
+<div *ngFor="let product of products" class="col-md-3">
+    <div class="card" style="width: 18rem;">
+      <img [routerLink]="['home/',product._id]" (click)="productDetails(product)" *ngIf="product?.thumbnail?.path" [src]="serverUrl+'/'+product.thumbnail.path" class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{product.price | currency:'INR':true}}</p>
+        <button class="btn card-text" (click)="addToCart(product)">Add to Cart</button>        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
