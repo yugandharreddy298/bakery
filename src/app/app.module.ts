@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule} from '@angular/router';
 import { CustomFormsModule } from 'ng2-validation';
+import { OwlModule } from 'ngx-owl-carousel';
 
 // import { NgbModule } from  '@ng-bootstrap/ng-bootstrap';
 
@@ -50,6 +51,8 @@ import { LoginComponent } from './login/login.component';
 import { ProductsFormComponent } from './admin/products-form/products-form.component';
 import { CategoryService } from './services/category.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,9 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     AdminOrdersComponent,
     LoginComponent,
     ProductsFormComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProfileComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +97,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     MatSnackBarModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    OwlModule,
     // NgbModule,
   //   RouterModule.forRoot([
   //      {path:'',component:HomeComponent},

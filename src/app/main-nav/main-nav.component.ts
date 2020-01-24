@@ -56,6 +56,8 @@ export class MainNavComponent implements OnInit {
       document.getElementById('signupModalBtn').click()      
     }
     else{
+      if(this.userProfile)
+        this.router.navigate(['/user/profile'])
       console.log('already loged')
     }
   }

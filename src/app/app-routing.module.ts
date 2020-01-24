@@ -21,6 +21,8 @@ import { LoginComponent } from './login/login.component';
 import { ProductsFormComponent } from './admin/products-form/products-form.component';
 import { CategoryService } from './services/category.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProfileComponent } from './profile/profile.component';
+import { BannerComponent } from './banner/banner.component';
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'vendor',component:VendorRegistrationComponent },
@@ -33,6 +35,8 @@ const routes: Routes = [
   {path:'categories/:category',component:CategoriesComponent},
   {path:'admin/products/new',component:ProductsFormComponent},
   {path:'home/:id',component:ProductDetailsComponent},
+  {path:'user/profile',component:ProfileComponent},  
+  {path:'banner',component:BannerComponent},    
 
 
   // {path:'',component:HomeComponent},

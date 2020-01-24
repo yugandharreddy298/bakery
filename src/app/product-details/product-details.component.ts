@@ -18,6 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this.userProfile = JSON.parse(localStorage.getItem('currentUser'));    
     console.log(this.route.snapshot.params.id)
+    this.quantity = 1    
     this.getItemInCartByProductId()
     this.productService.getProductById(this.route.snapshot.params.id).subscribe((data:any) =>{
       console.log(data)
@@ -37,11 +38,13 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getItemInCartByProductId() {
+    if (this.userProfile) {
     this.productService.getItemInCartByProductId(this.route.snapshot.params.id).subscribe((data: any) => {
       console.log(data)
       this.cartItem = data
       this.quantity = data.quantity
     })
+  }
   }
 
   quantityChange(operator){

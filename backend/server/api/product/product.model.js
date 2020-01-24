@@ -20,7 +20,7 @@ var ProductSchema = new Schema({
   thumbnail:{type:Schema.Types.ObjectId,ref:'Image'},
   created_at: { type: Date, required: true, default: Date.now },
   updated_at: Date,
-  active: Boolean
+  active: { type: Boolean, required: true, default: true }
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

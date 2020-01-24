@@ -68,4 +68,20 @@ export class ProductService {
   getItemInCartByProductId(id){
     return this.http.get(this.serverurl + '/api/cart/product/'+id);                
   }
+
+  getMyOders(){
+    return this.http.get(this.serverurl + '/api/order/myorders');                   
+  }
+
+  placeOrder(data){
+    return this.http.post(this.serverurl + '/api/order/',data);                       
+  }
+
+  addBanner(data){
+    return this.http.post(this.serverurl + '/api/banner/',data);                           
+  }
+
+  getBanner(){
+    return this.http.get(this.serverurl + '/api/banner/');                           
+  }
 }

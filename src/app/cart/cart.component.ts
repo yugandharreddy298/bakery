@@ -25,4 +25,17 @@ export class CartComponent implements OnInit {
       this.cartItems = data
     })
   }
+
+  placeOrder(){
+    let totalAmount = 0
+    let cartList = [] 
+    this.cartItems.forEach(item => {
+      totalAmount += item.productId.price * item.quantity 
+      cartList.push(item._id)
+    });
+    this.productService.placeOrder({cartList:cartList, totalAmount:totalAmount}).subscribe((data:any)=>{
+      console.log(data);
+
+    })
+  }
 }

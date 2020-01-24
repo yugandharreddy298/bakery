@@ -17,8 +17,10 @@
             <!-- </mat-action-row> -->
           </mat-expansion-panel>
       <!-- <a mat-list-item [routerLink]="['/categories']" (click)="drawer.close()">Categories</a>       -->
+      <a mat-list-item [routerLink]="['/home']" (click)="drawer.close()">Home</a>      
       <a *ngIf="userProfile && userProfile.role=='admin'" mat-list-item [routerLink]="['/vendor']" (click)="drawer.close()">Vendor Management</a>
       <a *ngIf="userProfile && userProfile.role=='admin'" mat-list-item [routerLink]="['/masterproduct']" (click)="drawer.close()">Master products</a>
+      <a *ngIf="userProfile && userProfile.role=='admin'" mat-list-item [routerLink]="['/banner']" (click)="drawer.close()">Banner</a>      
       <a *ngIf="userProfile && userProfile.role=='user'" mat-list-item [routerLink]="['/orders']" (click)="drawer.close()">My Orders</a>
       <a *ngIf="userProfile && userProfile.role=='vendor'" mat-list-item [routerLink]="['/products']" (click)="drawer.close()">Add Product</a>
       <a *ngIf="userProfile && userProfile.role" mat-list-item (click)="Logout();drawer.close()">Logout</a>      

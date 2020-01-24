@@ -9,6 +9,8 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/banner', require('./api/banner'));    
+  app.use('/api/order', require('./api/order'));  
   app.use('/api/otp', require('./api/otp'));
   app.use('/api/emailservices', require('./api/emailservice'));
   app.use('/api/image', require('./api/image'));
